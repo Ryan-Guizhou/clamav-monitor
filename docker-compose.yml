@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: clamav_guard
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  clamav:
+    image: clamav/clamav:latest
+    container_name: clamav
+    restart: unless-stopped
+    ports:
+      - "3310:3310"
+    volumes:
+      - ./clamav_config:/etc/clamav
+      - ./clamav_db:/var/lib/clamav
+
+  clam-backend:
+    build: ./clam-backend
+    container_name: clam-backend
+    depends_on:
+      - mysql
+      - clamav
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/clam_guard?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+      CLAMD_HOST: clamav
+      CLAMD_PORT: 3310
+    ports:
+      - "8088:8088"
+
+  clam-guard:
+    build: ./clam-guard
+    container_name: clam-guard
+    depends_on:
+      - clam-backend
+    ports:
+      - "80:80"
