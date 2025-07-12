@@ -1,46 +1,39 @@
 version: '3.8'
+
 services:
-  mysql:
-    image: mysql:5.7
-    container_name: mysql
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: clamav_guard
+  clamav-backend:
+    build:
+      context: ./clamav-backend
+      dockerfile: Dockerfile
     ports:
-      - "3306:3306"
-    volumes:
-      - ./mysql_data:/var/lib/mysql
-
-  clamav:
-    image: clamav/clamav:latest
-    container_name: clamav
-    restart: unless-stopped
-    ports:
-      - "3310:3310"
-    volumes:
-      - ./clamav_config:/etc/clamav
-      - ./clamav_db:/var/lib/clamav
-
-  clam-backend:
-    build: ./clam-backend
-    container_name: clam-backend
+      - "8080:8080"
     depends_on:
-      - mysql
-      - clamav
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/clam_guard?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 123456
-      CLAMD_HOST: clamav
-      CLAMD_PORT: 3310
-    ports:
-      - "8088:8088"
+      - clamav-db
 
-  clam-guard:
-    build: ./clam-guard
-    container_name: clam-guard
+  clamav-guard:
+    build:
+      context: ./clamav-guard
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
     depends_on:
-      - clam-backend
+      - clamav-backend
+
+  clamav-ui:
+    build:
+      context: ./clamav-ui
+      dockerfile: Dockerfile
     ports:
       - "80:80"
+
+  clamav-db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: clamav_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/doc.html",
                         "/favicon.ico"
                 ).permitAll()
-                .antMatchers("/api/authenticate", "/api/register").permitAll()
+                .antMatchers("/api/login", "/api/register").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()

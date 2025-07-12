@@ -1,6 +1,34 @@
-# ClamGuard Backend
+# ClamAV Backend
 
-This is the backend service for the ClamGuard application, built with Spring Boot.
+This module provides the backend services for the ClamAV Monitor project. It is a Java-based application built with Maven.
+
+For Chinese documentation, please refer to <mcfile name="README.zh-CN.md" path="c:\Users\Administrator\OneDrive\桌面\clamav-monitor\clamav-backend\README.zh-CN.md"></mcfile>.
+
+## Project Structure
+
+- `pom.xml`: Maven project configuration.
+- `src/main/`: Contains the main source code.
+- `sql/schema.sql`: Database schema definition.
+
+## Getting Started
+
+1.  **Build the project**:
+    ```bash
+    mvn clean install
+    ```
+2.  **Run the application**:
+    ```bash
+    java -jar target/clamav-backend.jar
+    ```
+    (Note: The actual command might vary based on the specific application setup and entry point.)
+
+## Database Setup
+
+The `sql/schema.sql` file contains the necessary SQL commands to set up the database schema. You will need to execute these commands on your database server before running the backend.
+
+## Deployment
+
+This backend application can be deployed as a standalone JAR or within a Docker container. Refer to the `Dockerfile` and `bootstrap.sh` for Docker deployment instructions.
 
 ## Technology Stack
 
