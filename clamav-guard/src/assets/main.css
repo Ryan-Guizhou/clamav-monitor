@@ -1,0 +1,157 @@
+:root {
+  --brand: #6c5ce7;
+  --brand-glow: #a29bfe;
+  --brand-orange: #ffb86c;
+  --bg-dark: #0a1020;
+  --bg-gradient: linear-gradient(135deg, #0a1020 0%, #1a1c23 100%);
+  --glass-bg: rgba(20, 24, 40, 0.7);
+  --glass-blur: 18px;
+  --text-main: #fff;
+  --text-secondary: #7ecfff;
+  --text-orange: #ffb86c;
+  --border-glass: 2px solid rgba(108, 92, 231, 0.25);
+  --shadow-glass: 0 8px 32px 0 rgba(108, 92, 231, 0.18);
+  --divider: 1.5px dashed #2e3750;
+  --font-family: 'Orbitron', 'Inter', 'Consolas', 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg-gradient) fixed;
+  color: var(--text-main);
+  font-family: var(--font-family);
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+/* 星点粒子背景由tsparticles实现 */
+
+/* 毛玻璃卡片+发光边框 */
+.glass-card, .ant-card {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(var(--glass-blur));
+  border-radius: 20px !important;
+  border: var(--border-glass) !important;
+  box-shadow: 0 0 24px 0 var(--brand-glow), var(--shadow-glass) !important;
+  color: var(--text-main);
+  position: relative;
+  overflow: hidden;
+}
+
+.ant-card-head-title {
+  color: var(--text-secondary);
+  font-family: var(--font-family);
+  letter-spacing: 0.12em;
+}
+
+/* LOGO/品牌色/主标题 */
+.logo h2, .brand-title, .main-title {
+  color: var(--brand-orange);
+  font-family: 'Orbitron', 'Consolas', 'Inter', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 24px var(--brand-glow), 0 0 8px var(--brand-orange);
+  font-size: 2.2rem;
+}
+
+/* Slogan/副标题 */
+.brand-slogan, .subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 2.2rem;
+  text-align: center;
+  letter-spacing: 0.08em;
+}
+
+/* 按钮渐变/发光/未来感 */
+.ant-btn-primary {
+  background: linear-gradient(90deg, var(--brand), var(--brand-orange));
+  border: none;
+  box-shadow: 0 2px 16px 0 var(--brand-orange);
+  font-family: var(--font-family);
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+.ant-btn-primary:hover {
+  background: linear-gradient(90deg, #5e50c7, #ffb86c);
+  box-shadow: 0 4px 24px 0 var(--brand-orange);
+}
+
+/* 输入框聚焦动画+未来感 */
+.ant-input, .ant-input-password {
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+  border: 2px solid #23243a;
+  color: var(--text-main);
+  font-family: var(--font-family);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.ant-input:focus, .ant-input-focused, .ant-input-password:focus {
+  border-color: var(--brand-orange);
+  box-shadow: 0 0 0 2px var(--brand-orange);
+}
+
+/* 统一表单标签 */
+.ant-form-item-label > label {
+  color: var(--brand-orange);
+  font-weight: 700;
+  font-family: var(--font-family);
+  letter-spacing: 0.08em;
+}
+
+/* 统一表格样式 */
+.ant-table {
+  background: var(--glass-bg) !important;
+  color: var(--text-main);
+  border-radius: 14px;
+  font-family: var(--font-family);
+}
+.ant-table-thead > tr > th {
+  background: #1a1c23 !important;
+  color: var(--brand-orange);
+  font-family: var(--font-family);
+  letter-spacing: 0.08em;
+}
+.ant-table-tbody > tr > td {
+  color: var(--text-main);
+}
+.ant-table-tbody > tr:hover > td {
+  background: #23243a !important;
+}
+
+/* 统一侧边栏/菜单 */
+.ant-layout-sider, .ant-menu-dark, .ant-menu-dark .ant-menu-sub {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(var(--glass-blur));
+  border-right: var(--divider);
+}
+.ant-menu-item-selected {
+  background: rgba(255,184,108,0.08) !important;
+  color: var(--brand-orange) !important;
+}
+
+/* 分割线/角标/装饰 */
+.divider {
+  border-bottom: var(--divider);
+  margin: 18px 0;
+}
+.badge {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--brand), var(--brand-orange));
+  color: #fff;
+  border-radius: 8px;
+  padding: 2px 10px;
+  font-size: 0.9em;
+  font-family: var(--font-family);
+  letter-spacing: 0.08em;
+  box-shadow: 0 0 8px var(--brand-orange);
+}
+
+/* 响应式优化 */
+@media (max-width: 600px) {
+  .ant-card, .glass-card {
+    margin: 0 8px !important;
+    padding: 12px !important;
+  }
+  .logo h2, .brand-title, .main-title { font-size: 1.3rem; }
+} 
